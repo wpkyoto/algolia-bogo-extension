@@ -1,4 +1,4 @@
-=== Algolia Bogo ===
+=== Search with Algolia Bogo extension ===
 Donate link: https://www.amazon.jp/hz/wishlist/ls/1UYH9PSDMB3FZ?ref_=wl_share
 Tags: algolia, bogo
 Requires at least: 5.5
