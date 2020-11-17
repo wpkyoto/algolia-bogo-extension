@@ -4,6 +4,7 @@
   "main": "Gruntfile.js",
   "author": "hidetaka okamoto",
   "scripts": {
+    "grunt": "grunt",
     "start": "grunt default",
     "readme": "grunt readme",
     "i18n": "grunt i18n"
