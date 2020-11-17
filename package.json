@@ -1,8 +1,8 @@
 {
   "name": "search-with-algolia-bogo-extension",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "Gruntfile.js",
-  "author": "YOUR NAME HERE",
+  "author": "hidetaka okamoto",
   "scripts": {
     "start": "grunt default",
     "readme": "grunt readme",
