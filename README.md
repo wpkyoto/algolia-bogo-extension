@@ -75,3 +75,25 @@ But, if the post has no `_locale` post_meta attribute, the plugin does not put t
 
 ### 0.1.2 ###
 * Release
+
+## Contributing ##
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+### Development Environment ###
+
+This plugin uses [wp-now](https://developer.wordpress.org/playground) for local development. See [README-wp-now.md](README-wp-now.md) for detailed setup instructions.
+
+**Quick start:**
+
+```bash
+npm install
+npm run start
+```
+
+### Development Scripts ###
+
+- `npm run start` - Start wp-now development server
+- `npm run php` - Execute PHP commands in wp-now environment
+- `npm run readme` - Generate README.md from readme.txt
+- `npm run i18n` - Generate translation template (pot file)

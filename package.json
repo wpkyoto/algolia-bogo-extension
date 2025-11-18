@@ -7,7 +7,9 @@
   "scripts": {
     "readme": "node scripts/readme-converter.js",
     "i18n": "node scripts/make-pot.js",
-    "wp-now": "wp-now start"
+    "wp-now": "wp-now",
+    "start": "wp-now start",
+    "php": "wp-now php"
   },
   "devDependencies": {
     "@wp-now/wp-now": "^0.1.74",
