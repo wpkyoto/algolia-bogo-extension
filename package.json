@@ -6,12 +6,13 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "readme": "wp-readme-to-markdown",
-    "i18n": "node scripts/make-pot.js",
+    "i18n": "wp-env run cli wp i18n make-pot . languages/algolia-bogo.pot --domain=algolia-bogo --slug=algolia-bogo",
     "wp-now": "wp-now",
     "start": "wp-now start",
     "php": "wp-now php"
   },
   "devDependencies": {
+    "@wordpress/env": "^10.35.0",
     "@wp-now/wp-now": "^0.1.74",
     "wp-readme-to-markdown": "^1.0.1"
   }

@@ -67,6 +67,20 @@ So the plugin still put the locale attributes if exists.
 
 But, if the post has no `_locale` post_meta attribute, the plugin does not put the locale attributes.
 
+## Contributing ##
+
+### Generating POT file for translations
+
+To generate the POT (Portable Object Template) file for translations, use the following command:
+
+```bash
+npm run i18n
+```
+
+This command uses [wp-env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) to run WordPress CLI's `i18n make-pot` command. Make sure Docker is running before executing this command.
+
+The generated POT file will be saved to `languages/algolia-bogo.pot`.
+
 ## Changelog ##
 
 ### 0.1.2 ###
