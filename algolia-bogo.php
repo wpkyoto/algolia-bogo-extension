@@ -6,6 +6,8 @@
  * Author:          Hidetaka Okamoto
  * Author URI:      https://wp-kyoto.net/en
  * Version:         0.1.4
+ * Text Domain:     algolia-bogo
+ * Domain Path:     /languages
  *
  * @package         Algolia_Bogo
  */
