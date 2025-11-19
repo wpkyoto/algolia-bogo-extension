@@ -5,7 +5,7 @@
   "author": "hidetaka okamoto",
   "license": "GPL-2.0-or-later",
   "scripts": {
-    "readme": "wp-readme-to-markdown",
+    "readme": "node scripts/md-to-readme.js",
     "i18n": "wp-env run cli wp i18n make-pot . languages/algolia-bogo.pot --domain=algolia-bogo --slug=algolia-bogo",
     "wp-now": "wp-now",
     "start": "wp-now start",
