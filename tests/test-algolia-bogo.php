@@ -518,10 +518,8 @@ class Test_Algolia_Bogo extends WP_UnitTestCase {
 	 * doesn't include the 'attributesForFaceting' key. In real-world scenarios, the settings
 	 * array might be incomplete or come from different sources.
 	 *
-	 * Note: The current implementation may cause a warning or error in PHP 8+ when
-	 * attempting to access an undefined array key. This test documents the current
-	 * behavior and may need to be updated if the implementation is improved to handle
-	 * missing keys more gracefully (e.g., by checking for key existence before accessing).
+	 * The implementation now handles missing keys gracefully by initializing them as empty
+	 * arrays before accessing them, preventing PHP 8+ undefined index errors.
 	 *
 	 * @since 0.1.0
 	 */
@@ -530,20 +528,15 @@ class Test_Algolia_Bogo extends WP_UnitTestCase {
 			'attributesToIndex' => array( 'existing' ),
 		);
 
-		// Current implementation may cause a warning/error in PHP 8+
-		// This test documents the current behavior
-		// In a production environment, this should be handled gracefully
-		try {
-			$result = $this->algolia_bogo->put_index_settings( $settings, 'post' );
-			// If no error occurs, verify the result
-			$this->assertIsArray( $result, 'Result should be an array' );
-		} catch ( \Error $e ) {
-			// PHP 8+ may throw an Error for undefined array key
-			$this->markTestSkipped( 'Current implementation does not handle missing attributesForFaceting gracefully' );
-		} catch ( \Exception $e ) {
-			// Other exceptions
-			$this->markTestSkipped( 'Current implementation does not handle missing attributesForFaceting gracefully' );
-		}
+		$result = $this->algolia_bogo->put_index_settings( $settings, 'post' );
+
+		$this->assertIsArray( $result, 'Result should be an array' );
+		$this->assertArrayHasKey( 'attributesForFaceting', $result, 'attributesForFaceting key should be created' );
+		$this->assertIsArray( $result['attributesForFaceting'], 'attributesForFaceting should be an array' );
+		$this->assertContains( 'locale', $result['attributesForFaceting'], 'locale should be added to attributesForFaceting' );
+		$this->assertArrayHasKey( 'attributesToIndex', $result, 'attributesToIndex key should exist' );
+		$this->assertContains( 'existing', $result['attributesToIndex'], 'existing attributesToIndex should be preserved' );
+		$this->assertContains( 'unordered(locale)', $result['attributesToIndex'], 'unordered(locale) should be added to attributesToIndex' );
 	}
 
 	/**
@@ -553,10 +546,8 @@ class Test_Algolia_Bogo extends WP_UnitTestCase {
 	 * doesn't include the 'attributesToIndex' key. Similar to the attributesForFaceting
 	 * test, this ensures the method can handle incomplete settings arrays.
 	 *
-	 * Note: The current implementation may cause a warning or error in PHP 8+ when
-	 * attempting to access an undefined array key. This test documents the current
-	 * behavior and may need to be updated if the implementation is improved to handle
-	 * missing keys more gracefully (e.g., by checking for key existence before accessing).
+	 * The implementation now handles missing keys gracefully by initializing them as empty
+	 * arrays before accessing them, preventing PHP 8+ undefined index errors.
 	 *
 	 * @since 0.1.0
 	 */
@@ -565,20 +556,15 @@ class Test_Algolia_Bogo extends WP_UnitTestCase {
 			'attributesForFaceting' => array( 'existing' ),
 		);
 
-		// Current implementation may cause a warning/error in PHP 8+
-		// This test documents the current behavior
-		// In a production environment, this should be handled gracefully
-		try {
-			$result = $this->algolia_bogo->put_index_settings( $settings, 'post' );
-			// If no error occurs, verify the result
-			$this->assertIsArray( $result, 'Result should be an array' );
-		} catch ( \Error $e ) {
-			// PHP 8+ may throw an Error for undefined array key
-			$this->markTestSkipped( 'Current implementation does not handle missing attributesToIndex gracefully' );
-		} catch ( \Exception $e ) {
-			// Other exceptions
-			$this->markTestSkipped( 'Current implementation does not handle missing attributesToIndex gracefully' );
-		}
+		$result = $this->algolia_bogo->put_index_settings( $settings, 'post' );
+
+		$this->assertIsArray( $result, 'Result should be an array' );
+		$this->assertArrayHasKey( 'attributesToIndex', $result, 'attributesToIndex key should be created' );
+		$this->assertIsArray( $result['attributesToIndex'], 'attributesToIndex should be an array' );
+		$this->assertContains( 'unordered(locale)', $result['attributesToIndex'], 'unordered(locale) should be added to attributesToIndex' );
+		$this->assertArrayHasKey( 'attributesForFaceting', $result, 'attributesForFaceting key should exist' );
+		$this->assertContains( 'existing', $result['attributesForFaceting'], 'existing attributesForFaceting should be preserved' );
+		$this->assertContains( 'locale', $result['attributesForFaceting'], 'locale should be added to attributesForFaceting' );
 	}
 
 	/**
