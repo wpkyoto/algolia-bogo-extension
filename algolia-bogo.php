@@ -5,7 +5,9 @@
  * Description:     Simply extension of Bogo and WP Search with Algolia. Put locale attributes into the indices.
  * Author:          Hidetaka Okamoto
  * Author URI:      https://wp-kyoto.net/en
- * Version:         0.1.0
+ * Version:         0.1.4
+ * Text Domain:     algolia-bogo
+ * Domain Path:     /languages
  *
  * @package         Algolia_Bogo
  */
@@ -13,9 +15,9 @@
 class Algolia_Bogo {
     private $locale_attribute_name = 'locale';
 
-    function __construct() {
-        add_filter( 'algolia_post_shared_attributes', array( $this, "put_bogo_attributes" ), 10, 2);
-        add_filter( 'algolia_searchable_post_shared_attributes', array( $this, "put_bogo_attributes" ), 10, 2);
+    public function __construct() {
+        add_filter( 'algolia_post_shared_attributes', array( $this, 'put_bogo_attributes' ), 10, 2 );
+        add_filter( 'algolia_searchable_post_shared_attributes', array( $this, 'put_bogo_attributes' ), 10, 2 );
         add_filter( 'algolia_posts_index_settings', array( $this, 'put_index_settings' ), 10, 2 );
         add_filter( 'algolia_searchable_posts_index_settings', array( $this, 'put_index_settings' ), 10, 1 );
     }
@@ -25,35 +27,40 @@ class Algolia_Bogo {
             return $settings;
         }
         array_push( $settings['attributesForFaceting'], $this->locale_attribute_name );
-        array_push( $settings['attributesToIndex'], 'unordered(' .$this->locale_attribute_name . ')' );
-        error_log( json_encode( $settings ) );
+        array_push( $settings['attributesToIndex'], 'unordered(' . $this->locale_attribute_name . ')' );
         return $settings;
     }
 
     /**
-     * Get the locale attribtues or default locale setting from bogo
+     * Get the locale attributes or default locale setting from bogo
      */
-    public function get_the_post_locale ( $post ) {
-        $locales = get_post_meta( $post->ID, "_locale" );
-        if ( empty( $locales ) ) {
+    public function get_the_post_locale( $post ) {
+        $locale = get_post_meta( $post->ID, '_locale', true );
+        if ( empty( $locale ) ) {
             if ( function_exists( 'bogo_get_default_locale' ) ) {
                 return bogo_get_default_locale();
             }
             return null;
         }
-        $locale = $locales[0];
-		return $locale;
+        return $locale;
     }
 
     /**
      * Supported post types
      */
     public function get_allowed_post_types() {
-        return apply_filters( 'algolia_bogo_allower_post_type', array(
+        $default_post_types = array(
             'post',
             'page',
             'searchable_posts',
-        ) );
+        );
+        
+        // Backwards compatibility: support old misspelled filter name
+        // TODO: Remove 'algolia_bogo_allower_post_type' in a future major release
+        $post_types = apply_filters( 'algolia_bogo_allower_post_type', $default_post_types );
+        
+        // Apply the corrected filter name
+        return apply_filters( 'algolia_bogo_allowed_post_type', $post_types );
     }
     
     /**
@@ -65,11 +72,17 @@ class Algolia_Bogo {
             return $shared_attributes;
         }
         $locale = $this->get_the_post_locale( $item );
-        if ( $locale && $locale !== null ) {
+        if ( ! empty( $locale ) ) {
             $shared_attributes[ $this->locale_attribute_name ] = $locale;
         }
         return $shared_attributes;
     }
 }
 
-new Algolia_Bogo();
+/**
+ * Initialize plugin
+ */
+function algolia_bogo_init() {
+    new Algolia_Bogo();
+}
+add_action( 'plugins_loaded', 'algolia_bogo_init' );

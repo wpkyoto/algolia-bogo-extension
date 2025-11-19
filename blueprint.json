@@ -1,0 +1,26 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "wordpress.org/plugins",
+				"slug": "bogo"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "wordpress.org/plugins",
+				"slug": "wp-search-with-algolia"
+			},
+			"options": {
+				"activate": true
+			}
+		}
+	]
+}
+

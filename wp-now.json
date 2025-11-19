@@ -1,0 +1,10 @@
+{
+	"php": "8.2",
+	"wp": "latest",
+	"port": 8888,
+	"blueprint": "blueprint.json",
+	"plugins": [
+		"."
+	]
+}
+

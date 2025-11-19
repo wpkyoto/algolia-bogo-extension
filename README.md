@@ -4,9 +4,10 @@
 **Requires at least:** 5.5  
 **Tested up to:** 5.5.3  
 **Requires PHP:** 7.2  
-**Stable tag:** 0.1.2  
+**Stable tag:** 0.1.4  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
+**Contributors:** [hidetakaokamoto](https://profiles.wordpress.org/hidetakaokamoto/)  
 
 Simply extension of Bogo and WP Search with Algolia.
 Put locale attributes into the indices.
@@ -65,6 +66,76 @@ Bogo will put the `_locale` attributes into the post_meta, and the plugin uses i
 So the plugin still put the locale attributes if exists.
 
 But, if the post has no `_locale` post_meta attribute, the plugin does not put the locale attributes.
+
+## Contributing ##
+
+### Development Environment Setup
+
+This project supports two development environments: [wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) and [wp-now](https://developer.wordpress.org/playground/). Both provide a local WordPress environment for development and testing.
+
+#### Using wp-env
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Start the development environment:
+```bash
+npm run env:start
+```
+
+Required plugins (Bogo and WP Search with Algolia) will be automatically installed from WordPress.org.
+
+3. Access WordPress at `http://localhost:8888`
+
+4. Stop the environment:
+```bash
+npm run env:stop
+```
+
+5. Clean up the environment:
+```bash
+npm run env:clean
+```
+
+6. Run WP-CLI commands:
+```bash
+npm run env:cli wp plugin list
+```
+
+#### Using wp-now
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Start the development environment:
+```bash
+npm run start
+```
+
+The environment will automatically install plugins specified in `blueprint.json` after WordPress initial setup.
+
+3. Access WordPress at `http://localhost:8888`
+
+4. Run PHP/WP-CLI commands:
+```bash
+npm run php wp plugin list
+```
+
+### Generating POT file for translations
+
+To generate the POT (Portable Object Template) file for translations, use the following command:
+
+```bash
+npm run i18n
+```
+
+This command uses [wp-env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) to run WordPress CLI's `i18n make-pot` command. Make sure Docker is running before executing this command.
+
+The generated POT file will be saved to `languages/algolia-bogo.pot`.
 
 ## Changelog ##
 

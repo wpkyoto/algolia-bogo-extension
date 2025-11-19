@@ -7,3 +7,5 @@ node_modules/
 *.sql
 *.tar.gz
 *.zip
+.wp-now/
+README-wp-now.md
