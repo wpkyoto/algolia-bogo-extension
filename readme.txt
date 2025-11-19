@@ -7,6 +7,7 @@ Requires PHP: 7.2
 Stable tag: 0.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Contributors: hidetakaokamoto
 
 Simply extension of Bogo and WP Search with Algolia.
 Put locale attributes into the indices.

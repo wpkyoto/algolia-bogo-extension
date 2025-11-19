@@ -1,12 +1,13 @@
 # Search with Algolia Bogo extension #
-**Donate link:** <https://www.amazon.jp/hz/wishlist/ls/1UYH9PSDMB3FZ?ref_=wl_share>
-**Tags:** algolia, bogo
-**Requires at least:** 5.5
-**Tested up to:** 5.5.3
-**Requires PHP:** 7.2
-**Stable tag:** 0.1.4
-**License:** GPLv2 or later
-**License URI:** <https://www.gnu.org/licenses/gpl-2.0.html>
+**Donate link:** https://www.amazon.jp/hz/wishlist/ls/1UYH9PSDMB3FZ?ref_=wl_share  
+**Tags:** algolia, bogo  
+**Requires at least:** 5.5  
+**Tested up to:** 5.5.3  
+**Requires PHP:** 7.2  
+**Stable tag:** 0.1.4  
+**License:** GPLv2 or later  
+**License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
+**Contributors:** [hidetakaokamoto](https://profiles.wordpress.org/hidetakaokamoto/)  
 
 Simply extension of Bogo and WP Search with Algolia.
 Put locale attributes into the indices.
@@ -68,41 +69,10 @@ But, if the post has no `_locale` post_meta attribute, the plugin does not put t
 
 ## Changelog ##
 
-### 0.1.4 ###
-* Fixed filter name typo: `algolia_bogo_allower_post_type` → `algolia_bogo_allowed_post_type`
-* Maintained backwards compatibility with the old filter name (deprecated, will be removed in a future major release)
-
 ### 0.1.2 ###
 * Release
 
 ## Upgrade Notice ##
 
-### 0.1.4 ###
-**Filter Name Correction:** The filter name `algolia_bogo_allower_post_type` has been corrected to `algolia_bogo_allowed_post_type`. The old filter name is still supported for backwards compatibility but is deprecated and will be removed in a future major release. Please update your code to use the corrected filter name `algolia_bogo_allowed_post_type`.
-
 ### 0.1.2 ###
 * Release
-
-## Contributing ##
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-### Development Environment ###
-
-This plugin uses [wp-now](https://developer.wordpress.org/playground) for local development.
-
-**Quick start:**
-
-```bash
-npm install
-npm run start
-```
-
-The development server will start on `http://localhost:8888`. WordPress will be automatically set up, and required plugins (Bogo and WP Search with Algolia) will be installed via the blueprint configuration.
-
-### Development Scripts ###
-
-- `npm run start` - Start wp-now development server
-- `npm run php` - Execute PHP commands in wp-now environment
-- `npm run readme` - Generate README.md from readme.txt
-- `npm run i18n` - Generate translation template (pot file)

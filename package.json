@@ -5,13 +5,14 @@
   "author": "hidetaka okamoto",
   "license": "GPL-2.0-or-later",
   "scripts": {
-    "readme": "node scripts/readme-converter.js",
-    "i18n": "wp-now php wp i18n make-pot . languages/algolia-bogo.pot --domain=algolia-bogo --slug=algolia-bogo",
+    "readme": "wp-readme-to-markdown",
+    "i18n": "node scripts/make-pot.js",
     "wp-now": "wp-now",
     "start": "wp-now start",
     "php": "wp-now php"
   },
   "devDependencies": {
-    "@wp-now/wp-now": "^0.1.74"
+    "@wp-now/wp-now": "^0.1.74",
+    "wp-readme-to-markdown": "^1.0.1"
   }
 }
