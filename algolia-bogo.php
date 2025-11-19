@@ -75,7 +75,6 @@ class Algolia_Bogo {
  * Initialize plugin
  */
 function algolia_bogo_init() {
-    global $algolia_bogo;
-    $algolia_bogo = new Algolia_Bogo();
+    new Algolia_Bogo();
 }
 add_action( 'plugins_loaded', 'algolia_bogo_init' );
