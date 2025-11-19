@@ -68,10 +68,17 @@ But, if the post has no `_locale` post_meta attribute, the plugin does not put t
 
 ## Changelog ##
 
+### 0.1.4 ###
+* Fixed filter name typo: `algolia_bogo_allower_post_type` → `algolia_bogo_allowed_post_type`
+* Maintained backwards compatibility with the old filter name (deprecated, will be removed in a future major release)
+
 ### 0.1.2 ###
 * Release
 
 ## Upgrade Notice ##
+
+### 0.1.4 ###
+**Filter Name Correction:** The filter name `algolia_bogo_allower_post_type` has been corrected to `algolia_bogo_allowed_post_type`. The old filter name is still supported for backwards compatibility but is deprecated and will be removed in a future major release. Please update your code to use the corrected filter name `algolia_bogo_allowed_post_type`.
 
 ### 0.1.2 ###
 * Release

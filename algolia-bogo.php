@@ -35,14 +35,13 @@ class Algolia_Bogo {
      * Get the locale attributes or default locale setting from bogo
      */
     public function get_the_post_locale( $post ) {
-        $locales = get_post_meta( $post->ID, '_locale' );
-        if ( empty( $locales ) ) {
+        $locale = get_post_meta( $post->ID, '_locale', true );
+        if ( empty( $locale ) ) {
             if ( function_exists( 'bogo_get_default_locale' ) ) {
                 return bogo_get_default_locale();
             }
             return null;
         }
-        $locale = $locales[0];
         return $locale;
     }
 
@@ -50,11 +49,18 @@ class Algolia_Bogo {
      * Supported post types
      */
     public function get_allowed_post_types() {
-        return apply_filters( 'algolia_bogo_allowed_post_type', array(
+        $default_post_types = array(
             'post',
             'page',
             'searchable_posts',
-        ) );
+        );
+        
+        // Backwards compatibility: support old misspelled filter name
+        // TODO: Remove 'algolia_bogo_allower_post_type' in a future major release
+        $post_types = apply_filters( 'algolia_bogo_allower_post_type', $default_post_types );
+        
+        // Apply the corrected filter name
+        return apply_filters( 'algolia_bogo_allowed_post_type', $post_types );
     }
     
     /**
