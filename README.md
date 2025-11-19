@@ -104,6 +104,16 @@ npm run env:clean
 npm run env:cli wp plugin list
 ```
 
+7. Install PHP dependencies (first time only):
+```bash
+npm run test:install
+```
+
+8. Run PHPUnit tests:
+```bash
+npm run test
+```
+
 #### Using wp-now
 
 1. Install dependencies:
@@ -136,6 +146,32 @@ npm run i18n
 This command uses [wp-env](https://ja.wordpress.org/team/handbook/block-editor/reference-guides/packages/packages-env/) to run WordPress CLI's `i18n make-pot` command. Make sure Docker is running before executing this command.
 
 The generated POT file will be saved to `languages/algolia-bogo.pot`.
+
+### Running Tests
+
+This project uses PHPUnit for unit testing. Tests are run using wp-env.
+
+1. Make sure wp-env is running:
+```bash
+npm run env:start
+```
+
+2. Install PHP dependencies (first time only):
+```bash
+npm run test:install
+```
+
+3. Run tests:
+```bash
+npm run test
+```
+
+The test suite includes:
+- Filter hook registration verification
+- Locale attribute addition for allowed post types
+- Index settings modification
+- Default locale handling
+- Error handling for edge cases
 
 ## Changelog ##
 

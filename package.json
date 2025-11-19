@@ -13,7 +13,9 @@
     "env:start": "wp-env start",
     "env:stop": "wp-env stop",
     "env:clean": "wp-env clean all",
-    "env:cli": "wp-env run cli"
+    "env:cli": "wp-env run cli",
+    "test": "wp-env run cli bash -c 'cd wp-content/plugins/algolia-bogo-extension && vendor/bin/phpunit -c phpunit.xml.dist'",
+    "test:install": "wp-env run cli bash -c 'cd wp-content/plugins/algolia-bogo-extension && composer install'"
   },
   "devDependencies": {
     "@wordpress/env": "^10.35.0",
