@@ -69,6 +69,62 @@ But, if the post has no `_locale` post_meta attribute, the plugin does not put t
 
 ## Contributing ##
 
+### Development Environment Setup
+
+This project supports two development environments: [wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) and [wp-now](https://developer.wordpress.org/playground/). Both provide a local WordPress environment for development and testing.
+
+#### Using wp-env
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Start the development environment:
+```bash
+npm run env:start
+```
+
+Required plugins (Bogo and WP Search with Algolia) will be automatically installed from WordPress.org.
+
+3. Access WordPress at `http://localhost:8888`
+
+4. Stop the environment:
+```bash
+npm run env:stop
+```
+
+5. Clean up the environment:
+```bash
+npm run env:clean
+```
+
+6. Run WP-CLI commands:
+```bash
+npm run env:cli wp plugin list
+```
+
+#### Using wp-now
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Start the development environment:
+```bash
+npm run start
+```
+
+The environment will automatically install plugins specified in `blueprint.json` after WordPress initial setup.
+
+3. Access WordPress at `http://localhost:8888`
+
+4. Run PHP/WP-CLI commands:
+```bash
+npm run php wp plugin list
+```
+
 ### Generating POT file for translations
 
 To generate the POT (Portable Object Template) file for translations, use the following command:

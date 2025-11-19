@@ -9,7 +9,11 @@
     "i18n": "wp-env run cli wp i18n make-pot . languages/algolia-bogo.pot --domain=algolia-bogo --slug=algolia-bogo",
     "wp-now": "wp-now",
     "start": "wp-now start",
-    "php": "wp-now php"
+    "php": "wp-now php",
+    "env:start": "wp-env start",
+    "env:stop": "wp-env stop",
+    "env:clean": "wp-env clean all",
+    "env:cli": "wp-env run cli"
   },
   "devDependencies": {
     "@wordpress/env": "^10.35.0",
