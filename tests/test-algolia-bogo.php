@@ -360,6 +360,83 @@ class Test_Algolia_Bogo extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test that put_bogo_attributes() adds locale attribute when _locale meta exists even if Bogo is deactivated.
+	 *
+	 * This test verifies the behavior described in README.md FAQ: "When the Bogo plugin deactivated,
+	 * what the behavior will changes? Bogo will put the `_locale` attributes into the post_meta,
+	 * and the plugin uses it. So the plugin still put the locale attributes if exists."
+	 *
+	 * The plugin should continue to work even when Bogo is deactivated, as long as the _locale
+	 * post meta exists. This is because the plugin reads directly from post meta, not from Bogo
+	 * functions when the meta is present.
+	 *
+	 * The test creates a post with _locale meta set, simulates Bogo being unavailable (by ensuring
+	 * bogo_get_default_locale() is not called), and verifies that the locale attribute is still
+	 * added to shared attributes.
+	 *
+	 * @since 0.1.0
+	 */
+	public function test_put_bogo_attributes_works_with_meta_when_bogo_deactivated() {
+		$post_id = $this->factory->post->create(
+			array(
+				'post_type' => 'post',
+			)
+		);
+
+		// Set _locale meta directly (as Bogo would do)
+		update_post_meta( $post_id, '_locale', 'en_US' );
+
+		$post = get_post( $post_id );
+		$shared_attributes = array();
+
+		// Even if Bogo is deactivated, if _locale meta exists, it should be used
+		$result = $this->algolia_bogo->put_bogo_attributes( $shared_attributes, $post );
+
+		$this->assertArrayHasKey( 'locale', $result, 'Locale should be added from post meta even when Bogo is deactivated' );
+		$this->assertEquals( 'en_US', $result['locale'], 'Locale value should match post meta' );
+	}
+
+	/**
+	 * Test that put_bogo_attributes() does not add locale attribute when _locale meta is missing and Bogo is deactivated.
+	 *
+	 * This test verifies the behavior described in README.md FAQ: "When the Bogo plugin deactivated,
+	 * what the behavior will changes? ... But, if the post has no `_locale` post_meta attribute,
+	 * the plugin does not put the locale attributes."
+	 *
+	 * When Bogo is deactivated and a post has no _locale meta, the plugin should not add locale
+	 * attributes. This is because get_the_post_locale() will return null when both the meta is
+	 * empty and bogo_get_default_locale() is unavailable.
+	 *
+	 * The test creates a post without _locale meta and verifies that no locale attribute is added
+	 * when Bogo functions are not available.
+	 *
+	 * @since 0.1.0
+	 */
+	public function test_put_bogo_attributes_does_not_add_locale_when_meta_missing_and_bogo_deactivated() {
+		$post_id = $this->factory->post->create(
+			array(
+				'post_type' => 'post',
+			)
+		);
+
+		// Ensure no _locale meta is set
+		// Also ensure Bogo is not available (test will be skipped if Bogo is available)
+		$has_bogo = function_exists( 'bogo_get_default_locale' );
+
+		if ( ! $has_bogo ) {
+			$post = get_post( $post_id );
+			$shared_attributes = array( 'existing' => 'value' );
+
+			$result = $this->algolia_bogo->put_bogo_attributes( $shared_attributes, $post );
+
+			$this->assertArrayNotHasKey( 'locale', $result, 'Locale should not be added when meta is missing and Bogo is deactivated' );
+			$this->assertEquals( 'value', $result['existing'], 'Existing attributes should be preserved' );
+		} else {
+			$this->markTestSkipped( 'Bogo is available in this environment, cannot test deactivated scenario' );
+		}
+	}
+
+	/**
 	 * Test that put_index_settings() adds 'locale' to the attributesForFaceting array.
 	 *
 	 * This test verifies that the plugin correctly configures Algolia index settings
