@@ -6,14 +6,12 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "readme": "node scripts/readme-converter.js",
-    "i18n": "node scripts/make-pot.js",
+    "i18n": "wp-now php wp i18n make-pot . languages/algolia-bogo.pot --domain=algolia-bogo --slug=algolia-bogo",
     "wp-now": "wp-now",
     "start": "wp-now start",
     "php": "wp-now php"
   },
   "devDependencies": {
-    "@wp-now/wp-now": "^0.1.74",
-    "gettext-extractor": "^3.8.0",
-    "glob": "^10.3.0"
+    "@wp-now/wp-now": "^0.1.74"
   }
 }
