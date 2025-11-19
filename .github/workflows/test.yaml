@@ -1,0 +1,53 @@
+name: Run Unit Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: PHPUnit Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install npm dependencies
+      run: npm install
+      
+    - name: Start wp-env
+      run: npm run env:start
+      env:
+        WP_ENV_CORE: https://wordpress.org/wordpress-6.4.zip
+        
+    - name: Wait for WordPress to be ready
+      run: |
+        echo "Waiting for WordPress to be ready..."
+        for i in {1..60}; do
+          if wp-env run cli wp core is-installed 2>/dev/null; then
+            echo "WordPress is ready!"
+            break
+          fi
+          echo "Waiting... ($i/60)"
+          sleep 2
+        done
+        
+    - name: Install PHP dependencies
+      run: npm run test:install
+      
+    - name: Run PHPUnit tests
+      run: npm run test
+      
+    - name: Stop wp-env
+      if: always()
+      run: npm run env:stop
+
