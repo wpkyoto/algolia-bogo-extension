@@ -1,12 +1,12 @@
 # Search with Algolia Bogo extension #
-**Donate link:** https://www.amazon.jp/hz/wishlist/ls/1UYH9PSDMB3FZ?ref_=wl_share
+**Donate link:** <https://www.amazon.jp/hz/wishlist/ls/1UYH9PSDMB3FZ?ref_=wl_share>
 **Tags:** algolia, bogo
 **Requires at least:** 5.5
 **Tested up to:** 5.5.3
 **Requires PHP:** 7.2
 **Stable tag:** 0.1.4
 **License:** GPLv2 or later
-**License URI:** https://www.gnu.org/licenses/gpl-2.0.html
+**License URI:** <https://www.gnu.org/licenses/gpl-2.0.html>
 
 Simply extension of Bogo and WP Search with Algolia.
 Put locale attributes into the indices.
@@ -82,7 +82,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ### Development Environment ###
 
-This plugin uses [wp-now](https://developer.wordpress.org/playground) for local development. See [README-wp-now.md](README-wp-now.md) for detailed setup instructions.
+This plugin uses [wp-now](https://developer.wordpress.org/playground) for local development.
 
 **Quick start:**
 
@@ -90,6 +90,8 @@ This plugin uses [wp-now](https://developer.wordpress.org/playground) for local 
 npm install
 npm run start
 ```
+
+The development server will start on `http://localhost:8888`. WordPress will be automatically set up, and required plugins (Bogo and WP Search with Algolia) will be installed via the blueprint configuration.
 
 ### Development Scripts ###
 
