@@ -3,7 +3,7 @@ Donate link: https://www.amazon.jp/hz/wishlist/ls/1UYH9PSDMB3FZ?ref_=wl_share
 Tags: algolia, bogo
 Requires at least: 5.5
 Tested up to: 5.5.3
-Requires PHP: 7.2
+Requires PHP: 7.3
 Stable tag: 0.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
