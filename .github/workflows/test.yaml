@@ -28,10 +28,17 @@ jobs:
     - name: Install npm dependencies
       run: npm install
       
+    - name: Get Latest WordPress Version
+      id: wp_version
+      run: |
+        LATEST_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r '.offers[0].version')
+        echo "WP_VERSION=$LATEST_VERSION" >> $GITHUB_ENV
+        echo "Using WordPress version: $LATEST_VERSION"
+      
     - name: Start wp-env
       run: npm run env:start
       env:
-        WP_ENV_CORE: https://wordpress.org/wordpress-6.4.zip
+        WP_ENV_CORE: https://wordpress.org/wordpress-${{ env.WP_VERSION }}.zip
         
     - name: Install PHP dependencies
       run: npm run test:install
