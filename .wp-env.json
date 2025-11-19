@@ -4,18 +4,8 @@
 	"testsPort": 8889,
 	"plugins": [
 		".",
-		{
-			"bogo": {
-				"source": "wordpress.org",
-				"activate": true
-			}
-		},
-		{
-			"wp-search-with-algolia": {
-				"source": "wordpress.org",
-				"activate": true
-			}
-		}
+		"bogo",
+		"wp-search-with-algolia"
 	]
 }
 
