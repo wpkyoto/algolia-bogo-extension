@@ -4,8 +4,8 @@
 	"testsPort": 8889,
 	"plugins": [
 		".",
-		"bogo",
-		"wp-search-with-algolia"
+		"https://downloads.wordpress.org/plugin/bogo.latest-stable.zip",
+		"https://downloads.wordpress.org/plugin/wp-search-with-algolia.latest-stable.zip"
 	]
 }
 
