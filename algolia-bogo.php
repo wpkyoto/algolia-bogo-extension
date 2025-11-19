@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     Search with Algolia Bogo extension
  * Plugin URI:      https://wp-kyoto.net
- * Description:     Simply extension of Bogo and WP Search with Algolia. Put locale attributes into the indices.
+ * Description:     Simple extension of Bogo and WP Search with Algolia. Put locale attributes into the indices.
  * Author:          Hidetaka Okamoto
  * Author URI:      https://wp-kyoto.net/en
  * Version:         0.1.4

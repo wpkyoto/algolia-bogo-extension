@@ -1,6 +1,6 @@
 {
 	"name": "hidetakaokamoto/algolia-bogo-extension",
-	"description": "Simply extension of Bogo and WP Search with Algolia",
+	"description": "Simple extension of Bogo and WP Search with Algolia",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"require": {
