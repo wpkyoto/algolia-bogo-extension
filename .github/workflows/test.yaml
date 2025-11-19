@@ -1,0 +1,52 @@
+name: Run Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: PHPUnit Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install npm dependencies
+      run: npm install
+      
+    - name: Get Latest WordPress Version
+      id: wp_version
+      run: |
+        LATEST_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r '.offers[0].version')
+        echo "WP_VERSION=$LATEST_VERSION" >> $GITHUB_ENV
+        echo "Using WordPress version: $LATEST_VERSION"
+      
+    - name: Start wp-env
+      run: npm run env:start
+      env:
+        WP_ENV_CORE: https://wordpress.org/wordpress-${{ env.WP_VERSION }}.zip
+        
+    - name: Install PHP dependencies
+      run: npm run test:install
+      
+    - name: Run PHPUnit tests
+      run: npm run test
+      
+    - name: Stop wp-env
+      if: always()
+      run: npm run env:stop
+

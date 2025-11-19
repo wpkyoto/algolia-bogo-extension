@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     Search with Algolia Bogo extension
  * Plugin URI:      https://wp-kyoto.net
- * Description:     Simply extension of Bogo and WP Search with Algolia. Put locale attributes into the indices.
+ * Description:     Simple extension of Bogo and WP Search with Algolia. Put locale attributes into the indices.
  * Author:          Hidetaka Okamoto
  * Author URI:      https://wp-kyoto.net/en
  * Version:         0.1.4
@@ -26,8 +26,18 @@ class Algolia_Bogo {
         if ( ! in_array( $post_type, $this->get_allowed_post_types() ) ) {
             return $settings;
         }
-        array_push( $settings['attributesForFaceting'], $this->locale_attribute_name );
-        array_push( $settings['attributesToIndex'], 'unordered(' . $this->locale_attribute_name . ')' );
+        
+        // Ensure attributesForFaceting key exists and is an array
+        if ( ! isset( $settings['attributesForFaceting'] ) || ! is_array( $settings['attributesForFaceting'] ) ) {
+            $settings['attributesForFaceting'] = array();
+        }
+        $settings['attributesForFaceting'][] = $this->locale_attribute_name;
+        
+        // Ensure attributesToIndex key exists and is an array
+        if ( ! isset( $settings['attributesToIndex'] ) || ! is_array( $settings['attributesToIndex'] ) ) {
+            $settings['attributesToIndex'] = array();
+        }
+        $settings['attributesToIndex'][] = 'unordered(' . $this->locale_attribute_name . ')';
         return $settings;
     }
 

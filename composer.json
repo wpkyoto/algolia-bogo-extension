@@ -1,0 +1,33 @@
+{
+	"name": "hidetakaokamoto/algolia-bogo-extension",
+	"description": "Simple extension of Bogo and WP Search with Algolia",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=7.3"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.5",
+		"yoast/phpunit-polyfills": "^1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Algolia_Bogo\\": "includes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Algolia_Bogo\\Tests\\": "tests/"
+		}
+	},
+	"scripts": {
+		"test": "phpunit",
+		"test:coverage": "phpunit --coverage-html coverage"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
+	}
+}
+
