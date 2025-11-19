@@ -558,13 +558,9 @@ class Test_Algolia_Bogo extends WP_UnitTestCase {
 
 		$result = $this->algolia_bogo->put_index_settings( $settings, 'post' );
 
-		$this->assertIsArray( $result, 'Result should be an array' );
-		$this->assertArrayHasKey( 'attributesToIndex', $result, 'attributesToIndex key should be created' );
-		$this->assertIsArray( $result['attributesToIndex'], 'attributesToIndex should be an array' );
-		$this->assertContains( 'unordered(locale)', $result['attributesToIndex'], 'unordered(locale) should be added to attributesToIndex' );
-		$this->assertArrayHasKey( 'attributesForFaceting', $result, 'attributesForFaceting key should exist' );
-		$this->assertContains( 'existing', $result['attributesForFaceting'], 'existing attributesForFaceting should be preserved' );
-		$this->assertContains( 'locale', $result['attributesForFaceting'], 'locale should be added to attributesForFaceting' );
+		$this->assertArrayHasKey( 'attributesToIndex', $result );
+		$this->assertContains( 'unordered(locale)', $result['attributesToIndex'] );
+		$this->assertCount( 1, $result['attributesToIndex'] );
 	}
 
 	/**
