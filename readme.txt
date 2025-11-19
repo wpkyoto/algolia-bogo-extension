@@ -4,7 +4,7 @@ Tags: algolia, bogo
 Requires at least: 5.5
 Tested up to: 5.5.3
 Requires PHP: 7.3
-Stable tag: 0.1.4
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Contributors: hidetakaokamoto
@@ -121,10 +121,22 @@ The generated POT file will be saved to `languages/algolia-bogo.pot`.
 
 == Changelog ==
 
+= 0.2.0 =
+* Fix PHP 8+ compatibility: Add defensive checks for array keys before array operations
+* Fix filter name typo (`algolia_bogo_allower_post_type` -> `algolia_bogo_allowed_post_type`) with backwards compatibility
+* Add PHPUnit tests with comprehensive test coverage
+* Add GitHub Actions workflow for automated testing
+* Improve development environment support (wp-env, wp-now)
+* Modernize code and fix coding standards
+* Update PHP requirement from 7.2 to 7.3
+
 = 0.1.2 =
 * Release
 
 == Upgrade Notice ==
+
+= 0.2.0 =
+* This release includes PHP 8+ compatibility fixes and improved code quality. No breaking changes.
 
 = 0.1.2 =
 * Release

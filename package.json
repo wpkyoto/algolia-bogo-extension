@@ -1,6 +1,6 @@
 {
   "name": "search-with-algolia-bogo-extension",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Simple extension of Bogo and WP Search with Algolia",
   "author": "hidetaka okamoto",
   "license": "GPL-2.0-or-later",
@@ -15,7 +15,8 @@
     "env:clean": "wp-env clean all",
     "env:cli": "wp-env run cli",
     "test": "wp-env run cli bash -c 'cd wp-content/plugins/algolia-bogo-extension && vendor/bin/phpunit -c phpunit.xml.dist'",
-    "test:install": "wp-env run cli bash -c 'cd wp-content/plugins/algolia-bogo-extension && composer install'"
+    "test:install": "wp-env run cli bash -c 'cd wp-content/plugins/algolia-bogo-extension && composer install'",
+    "release": "node scripts/release.js"
   },
   "devDependencies": {
     "@wordpress/env": "^10.35.0",

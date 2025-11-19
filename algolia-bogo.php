@@ -5,7 +5,7 @@
  * Description:     Simple extension of Bogo and WP Search with Algolia. Put locale attributes into the indices.
  * Author:          Hidetaka Okamoto
  * Author URI:      https://wp-kyoto.net/en
- * Version:         0.1.4
+ * Version:         0.2.0
  * Text Domain:     algolia-bogo
  * Domain Path:     /languages
  *
