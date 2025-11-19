@@ -1,0 +1,184 @@
+---
+description: Search with Algolia Bogo Extension プラグインのテスト要件とテスト手順
+globs: ["**/*.php", "**/wp-now.json", "**/blueprint.json"]
+alwaysApply: false
+---
+
+# Search with Algolia Bogo Extension テスト要件
+
+このプラグインは、BogoとWP Search with Algoliaを統合し、Algoliaのインデックスに`locale`属性を追加するプラグインです。
+
+**注意:** テスト結果や調査レポートなどのMDファイルはプロジェクトルートに配置しないでください。一時的なファイルは作業完了時に削除するか、適切なディレクトリに配置してください。
+
+## 必須テスト項目
+
+### 1. プラグインのインストール・有効化確認
+
+- [ ] Bogoプラグインがインストール・有効化されている
+- [ ] WP Search with Algoliaプラグインがインストール・有効化されている
+- [ ] Search with Algolia Bogo extensionプラグインがインストール・有効化されている
+- [ ] すべてのプラグインがエラーなく動作している
+
+**確認方法:**
+- WordPress管理画面の「プラグイン」ページで確認
+- プラグインの有効化時にエラーが発生しないことを確認
+
+### 2. フィルターフックの登録確認
+
+以下のフィルターフックが正しく登録されていることを確認:
+
+- [ ] `algolia_post_shared_attributes` - 投稿の共有属性にlocaleを追加
+- [ ] `algolia_searchable_post_shared_attributes` - 検索可能な投稿の共有属性にlocaleを追加
+- [ ] `algolia_posts_index_settings` - 投稿インデックスの設定にlocaleを追加
+- [ ] `algolia_searchable_posts_index_settings` - 検索可能な投稿インデックスの設定にlocaleを追加
+
+**確認方法:**
+```php
+has_filter('algolia_post_shared_attributes');
+has_filter('algolia_searchable_post_shared_attributes');
+has_filter('algolia_posts_index_settings');
+has_filter('algolia_searchable_posts_index_settings');
+```
+
+### 3. 投稿にlocale属性が追加されるか
+
+- [ ] 投稿タイプ`post`の投稿にlocale属性が追加される
+- [ ] 投稿タイプ`page`のページにlocale属性が追加される
+- [ ] 投稿タイプ`searchable_posts`の投稿にlocale属性が追加される
+- [ ] 許可されていない投稿タイプにはlocale属性が追加されない
+
+**テスト手順:**
+1. Bogoで言語を設定（例: 日本語、英語）
+2. 各言語で投稿を作成
+3. Algoliaのインデックスを確認し、各投稿に`locale`属性が含まれていることを確認
+
+**確認方法:**
+- Algoliaダッシュボードでインデックスを確認
+- 各レコードに`locale`フィールドが存在することを確認
+
+### 4. インデックス設定にlocaleが追加されるか
+
+- [ ] `attributesForFaceting`に`locale`が追加される
+- [ ] `attributesToIndex`に`unordered(locale)`が追加される
+- [ ] 許可された投稿タイプのみに設定が適用される
+
+**テスト手順:**
+1. Algolia APIキーを設定
+2. インデックスを作成
+3. インデックス設定を確認
+
+**確認方法:**
+- Algoliaダッシュボードでインデックス設定を確認
+- `attributesForFaceting`に`locale`が含まれていることを確認
+- `attributesToIndex`に`unordered(locale)`が含まれていることを確認
+
+### 5. 許可された投稿タイプのみに適用されるか
+
+- [ ] `post`タイプの投稿に適用される
+- [ ] `page`タイプのページに適用される
+- [ ] `searchable_posts`タイプの投稿に適用される
+- [ ] カスタム投稿タイプ（許可されていない）には適用されない
+
+**テスト手順:**
+1. 許可された投稿タイプで投稿を作成し、locale属性が追加されることを確認
+2. 許可されていないカスタム投稿タイプで投稿を作成し、locale属性が追加されないことを確認
+
+### 6. デフォルトロケールが正しく取得されるか
+
+- [ ] 投稿に`_locale`メタデータがない場合、Bogoのデフォルトロケールが使用される
+- [ ] 投稿に`_locale`メタデータがある場合、その値が使用される
+- [ ] Bogoが無効化されている場合、`_locale`メタデータがあればそれを使用する
+
+**テスト手順:**
+1. デフォルトロケールを設定（例: `en_US`）
+2. `_locale`メタデータがない投稿を作成
+3. デフォルトロケールが使用されることを確認
+4. `_locale`メタデータを設定した投稿を作成
+5. 設定したロケールが使用されることを確認
+
+### 7. エラーハンドリング
+
+- [ ] `$settings`配列に`attributesForFaceting`が存在しない場合のエラーハンドリング
+- [ ] `$settings`配列に`attributesToIndex`が存在しない場合のエラーハンドリング
+- [ ] Bogoが無効化されている場合の動作確認
+
+**注意事項:**
+現在のコードでは、`put_index_settings`メソッドで`$settings['attributesForFaceting']`と`$settings['attributesToIndex']`の存在チェックが行われていません。これらが存在しない場合、エラーが発生する可能性があります。
+
+## wp-now環境でのテスト手順
+
+### セットアップ
+
+1. 依存パッケージのインストール:
+   ```bash
+   npm install
+   ```
+
+2. wp-nowの起動:
+   ```bash
+   npm run start
+   ```
+
+3. WordPressの初期設定を完了
+
+4. プラグインの確認:
+   - 管理画面の「プラグイン」ページで、Bogo、WP Search with Algolia、Search with Algolia Bogo extensionが有効化されていることを確認
+
+### 機能テスト
+
+1. **Bogoの設定:**
+   - 管理画面の「Languages」メニューで言語を追加・設定
+
+2. **Algolia Searchの設定:**
+   - AlgoliaアカウントのAPIキーを取得
+   - 管理画面の「Algolia Search」→「Settings」でAPIキーを設定
+   - 「Autocomplete」タブでインデックスに含める投稿タイプを選択
+   - 「Sync」タブでインデックスを作成
+
+3. **動作確認:**
+   - 複数の言語で投稿を作成
+   - Algoliaのインデックスに`locale`属性が正しく追加されているか確認
+   - インデックス設定に`locale`がファセットとして追加されているか確認
+
+## 既知の問題
+
+### 潜在的なバグ
+
+`put_index_settings`メソッドで、`$settings`配列に`attributesForFaceting`と`attributesToIndex`が存在することを前提としています。これらが存在しない場合、エラーが発生する可能性があります。
+
+**推奨される修正:**
+```php
+public function put_index_settings( $settings, $post_type = 'searchable_posts' ) {
+    if ( ! in_array( $post_type, $this->get_allowed_post_types() ) ) {
+        return $settings;
+    }
+    
+    // 存在チェックを追加
+    if ( ! isset( $settings['attributesForFaceting'] ) ) {
+        $settings['attributesForFaceting'] = array();
+    }
+    if ( ! isset( $settings['attributesToIndex'] ) ) {
+        $settings['attributesToIndex'] = array();
+    }
+    
+    array_push( $settings['attributesForFaceting'], $this->locale_attribute_name );
+    array_push( $settings['attributesToIndex'], 'unordered(' . $this->locale_attribute_name . ')' );
+    return $settings;
+}
+```
+
+## テスト環境
+
+- **開発環境:** wp-now
+- **WordPressバージョン:** 6.8.3（最新）
+- **PHPバージョン:** 8.0（wp-nowのデフォルト）
+- **必須プラグイン:**
+  - Bogo (v3.9.0.1)
+  - WP Search with Algolia (v2.10.4)
+
+## 参考リンク
+
+- [Cursor Rules ドキュメント](https://docs.cursor.com/ja/context/rules)
+- [Bogoプラグイン](https://wordpress.org/plugins/bogo/)
+- [WP Search with Algoliaプラグイン](https://wordpress.org/plugins/wp-search-with-algolia/)
+- [Algolia ファセット設定](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/)
