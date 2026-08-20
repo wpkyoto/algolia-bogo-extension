@@ -1,0 +1,4 @@
+{
+  "name": "Algolia Bogo Extension",
+  "install": "npm ci && bash .cursor/setup-chunk.sh"
+}
